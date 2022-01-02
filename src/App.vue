@@ -1,30 +1,132 @@
 <template>
-  <div id="nav">
-    <router-link to="/">Home</router-link> |
-    <router-link to="/about">About</router-link>
+  <div id="frame">
+    <router-view />
   </div>
-  <router-view/>
 </template>
 
+<script>
+import angleIcon from './assets/img/angle.png';
+
+export default {
+  name: 'App',
+  mounted() {
+    window.onmousemove = (e) => {
+      let angle = document.createElement('div');
+      angle.className = 'angle';
+      angle.style.top = e.pageY - 25 + 'px';
+      angle.style.left = e.pageX - 20 + 'px';
+      angle.style.animation = 'mouse' + Math.ceil(5 * Math.random()) + ' 1s 1';
+      angle.innerHTML = '<image src="' + angleIcon + '"/>';
+      angle.style.zIndex = 99999;
+      document.body.appendChild(angle);
+      setTimeout(() => {
+        angle.parentElement.removeChild(angle);
+      }, 900);
+    };
+    window.onresize = () => {
+      this.$store.dispatch('asyncSetHeight', window.innerHeight - 40);
+    }
+  }
+}
+</script>
+
 <style>
-#app {
-  font-family: Avenir, Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
+html, body, #app{
+  height: 100%;
+  margin: 0;
+  padding: 0;
 }
 
-#nav {
-  padding: 30px;
+* {
+  cursor: url(./assets/img/mouse.png), auto;
 }
 
-#nav a {
-  font-weight: bold;
-  color: #2c3e50;
+.angle {
+  position: fixed;
+  width: 1px;
+  line-height: 1px;
+  z-index: 10;
+  pointer-events: none;
 }
 
-#nav a.router-link-exact-active {
-  color: #42b983;
+
+@keyframes mouse1 {
+  0% {
+    opacity: 1;
+  }
+
+  30% {
+    opacity: 1;
+  }
+
+  100% {
+    opacity: 0;
+    transform: translateY(-20px) scale(.2) rotate(45deg);
+  }
+}
+
+@keyframes mouse2 {
+  0% {
+    opacity: 1;
+  }
+
+  30% {
+    opacity: 1;
+  }
+
+  100% {
+    opacity: 0;
+    transform: translateY(-35px) scale(.1) rotate(45deg);
+  }
+}
+
+@keyframes mouse3 {
+  0% {
+    opacity: 1;
+  }
+
+  30% {
+    opacity: 1;
+  }
+
+  100% {
+    opacity: 0;
+    transform: translateY(-50px) scale(.3) rotate(45deg);
+  }
+}
+
+@keyframes mouse4 {
+  0% {
+    opacity: 1;
+  }
+
+  30% {
+    opacity: 1;
+  }
+
+  100% {
+    opacity: 0;
+    transform: translateY(-65px) scale(.1) rotate(45deg);
+  }
+}
+
+@keyframes mouse5 {
+  0% {
+    opacity: 1;
+  }
+
+  30% {
+    opacity: 1;
+  }
+
+  100% {
+    opacity: 0;
+    transform: translateY(-80px) scale(.2) rotate(45deg);
+  }
+}
+
+#frame {
+  height: 100%;
+  width: 100%;
 }
 </style>
